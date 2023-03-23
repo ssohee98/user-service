@@ -29,16 +29,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests().antMatchers("/users").permitAll();
         http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+        http.authorizeRequests().antMatchers("/error/**").permitAll();
+        http.authorizeRequests().antMatchers("/login/**").permitAll();
 
         http.authorizeRequests().antMatchers("/**")
-                .hasIpAddress("localhost")
+                .hasIpAddress("127.0.0.1")
                 .and()
-                .addFilter(getAuthenticationFiler());
+                .addFilter(getAuthenticationFilter());
 
         http.headers().frameOptions().disable();
     }
 
-    private AuthenticationFilter getAuthenticationFiler() throws Exception {
+    private AuthenticationFilter getAuthenticationFilter() throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager(), userService, env);
 
         return authenticationFilter;
