@@ -10,5 +10,7 @@ public interface UserService extends UserDetailsService {
     UserDTO createUser(UserDTO userDTO);
     UserDTO getUserByUserId(String userId);
     Iterable<UserEntity> getUserByAll();
+    UserDTO getUserDetailByEmail(String userName);
+    //userName:로그인시 id = 실제로는 email
 
 }
